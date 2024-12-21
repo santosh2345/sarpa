@@ -53,7 +53,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
         velocityX = 0;
         velocityY = 0;
 
-        gameLoop = new Timer(200, this);
+        gameLoop = new Timer(100, this);
         gameLoop.start();
     }
 
@@ -83,6 +83,37 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
         for(Tile tile : snakeBody){
             g.fillRect(tile.x * tileSize, tile.y* tileSize, tileSize, tileSize);
         }
+
+
+
+  
+if(gameOver) {
+
+    g.setFont(new Font("Arial", Font.BOLD, 40));
+    g.setColor(Color.RED);
+    String gameOverText = "Game Over!";
+    g.drawString(gameOverText, boardWidth/2 - 100, boardHeight/2 - 20);
+    
+ 
+    g.setFont(new Font("Arial", Font.PLAIN, 25));
+    g.setColor(Color.WHITE);
+    String scoreText = "Final Score: " + snakeBody.size();
+    g.drawString(scoreText, boardWidth/2 - 70, boardHeight/2 + 30);
+    
+   
+    
+} else {
+
+    g.setFont(new Font("Arial", Font.BOLD, 20));
+    
+   
+    g.setColor(new Color(0, 0, 0, 150));
+    g.fillRect(10, 10, 120, 30);
+    
+
+    g.setColor(Color.GREEN);
+    g.drawString("Score: " + snakeBody.size(), 20, 32);
+}
    
    
     }
@@ -126,6 +157,12 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
                 gameOver = true;
             }
         }
+
+        if(snakeHead.x*tileSize < 0 || snakeHead.x*tileSize > boardWidth || snakeHead.y*tileSize < 0 || snakeHead.y*tileSize > boardHeight){
+            gameOver = true;
+        }
+
+
     }
 
     @Override
@@ -164,7 +201,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
     }
 
 
-    // we don't need to implement the other methods of the interface
+    
     @Override
     public void keyTyped(KeyEvent e) {}
 
